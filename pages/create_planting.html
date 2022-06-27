@@ -1,0 +1,467 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Go-Farm planting</title>
+  <!-- materialize icons, css & js -->
+  <link type="text/css" href="/css/materialize.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" href="/css/style.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <link rel="manifest" href="/manifest.json">
+
+
+  <!-- ios support-->
+  <link rel="apple-touch-icon" href="/img/icons/96x96.png">
+  <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
+  <meta name="theme-color" content="#FFE1C4">
+
+
+</head>
+
+<body class="grey lighten-4">
+
+  <!-- top nav -->
+  <nav class="z-depth-0">
+    <div class="nav-wrapper container">
+      <a href="/">Go<span>Farm</span></a>
+      <span class="right grey-text text-darken-1">
+        <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
+      </span>
+    </div>
+  </nav>
+
+  <!-- side nav -->
+  <ul id="side-menu" class="sidenav side-menu">
+    <li><a class="subheader">Go-Farm</a></li>
+    <li><a href="/" class="waves-effect">Home</a></li>
+    <li><a href="/pages/about.html" class="waves-effect">About</a></li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li><a href="/pages/contact.html" class="waves-effect">
+        <i class="material-icons">mail_outline</i>Contact</a>
+    </li>
+   
+
+  </ul>
+
+  <!-- recipes -->
+  <form id="myForm" action="#">
+    <div class="recipes container grey-text text-darken-1">
+
+
+    </div>
+
+    
+
+    <div class="card-panel recipe white row">
+      <img src="/img/plant_name.png" alt="recipe thumb">
+      <input type="text" class="plantname" placeholder="Plant Name" id="plant_name"></input>
+    </div>
+
+    <div class="card-panel recipe white row">
+      <img src="/img/checklist.png" alt="recipe thumb">
+      <input type="number" class="plantno" placeholder="No.of plants" id="plant_no"></input>
+
+    </div>
+
+
+    <div class="card-panel recipe white row">
+      <img src="/img/calendar.png" alt="recipe thumb">
+      <input type="date" class="date" placeholder="Date" id="date_field"></input>
+
+    </div>
+
+    <div class="card-panel recipe white row">
+      <img src="/img/stopwatch.png" alt="recipe thumb" style="margin-top: 20px;">
+
+      
+      <div class="range-slider">
+        <div id="tooltip"></div>
+        <input id="range" type="range" step="1" value="1" min="0" max="12">
+      </div>
+    </div>
+
+    <style>
+      /* https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
+
+      .range-slider {
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        margin-top: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      #range {
+        -webkit-appearance: none;
+        width: 100%;
+      }
+
+      #range:focus {
+        outline: none;
+      }
+
+      #range::before,
+      #range::after {
+        position: absolute;
+        top: 2rem;
+        color: #333;
+        font-size: 14px;
+        line-height: 1;
+        padding: 3px 5px;
+        background-color: rgba(0, 0, 0, .1);
+        border-radius: 4px;
+      }
+
+      #range::before {
+        left: 0;
+        content: attr(data-min);
+      }
+
+      #range::after {
+        right: 0;
+        content: attr(data-max);
+      }
+
+      #range::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 1rem;
+        cursor: pointer;
+
+        background: linear-gradient(90deg, #07da63 var(--range-progress), #dee4ec var(--range-progress));
+        border-radius: 1rem;
+      }
+
+      #range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: 0.25rem solid#07da63;
+        box-shadow: 0 1px 3px rgba(0, 0, 255, .3);
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+        height: 32px;
+        width: 32px;
+        transform: translateY(calc(-50% + 8px));
+      }
+
+      #tooltip {
+        position: absolute;
+        top: -2.25rem;
+      }
+
+      #tooltip span {
+        position: absolute;
+        text-align: center;
+        display: block;
+        line-height: 1;
+        padding: 0.125rem 0.25rem;
+        color: #fff;
+        border-radius: 0.125rem;
+        background: #059142;
+        font-size: 1.25rem;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+
+      #tooltip span:before {
+        position: absolute;
+        content: "";
+        left: 50%;
+        bottom: -8px;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border: 4px solid transparent;
+        border-top-color: #08f26e;
+      }
+    </style>
+
+    <center>
+
+      <button class="btn btn-danger" type="reset" value="Reset" style="background-color:red;" id="RstBtn"
+        onclick="fun()">Reset</button>
+
+      <button class="btn btn-success" style="background-color: #07da63;" id="SubBtn">Submit</button>
+      
+    </center>
+
+
+    <!-- recipes -->
+    <div class="recipes container grey-text text-darken-1">
+      <div class="card-panel recipe white row">
+        <img src="/img/calendar.png" alt="recipe thumb" href="#">
+        <div class="recipe-details">
+          <div class="recipe-title"><a href="/"></a></div>
+          <label>View Planting Entry</label>
+          <select class="browser-default" id="selectedMonth">
+            <option value="00" selected>Choose the month</option>
+            <option value="01">Janaury</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <center>
+
+      <button id="show" class="btn waves-effect waves-light"
+        style="background-color:#07da63; margin-left: 150px;">Show</button>
+
+    </center>
+
+
+
+    <div class="recipes container grey-text text-darken-1" id="cardsContainer">
+
+    </div>
+
+  </form>
+  </div>
+
+
+
+
+  <script src="/js/app.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/ui_planting.js"></script>
+
+
+
+
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+    import { getDatabase, set, ref, onValue } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+    apiKey: "AIzaSyD491wBvvFOjLDGbZVcg8I7GS2WudkO030",
+    authDomain: "go-farm-a5ac8.firebaseapp.com",
+    databaseURL: "https://go-farm-a5ac8-default-rtdb.firebaseio.com",
+    projectId: "go-farm-a5ac8",
+    storageBucket: "go-farm-a5ac8.appspot.com",
+    messagingSenderId: "696360381034",
+    appId: "1:696360381034:web:d12482efa872b87edaf813"
+};
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    // Get a reference to the database service
+    const database = getDatabase(app);
+
+
+    //global variables
+    var insertbtn = document.getElementById('SubBtn');
+    var showbtn = document.getElementById('show');
+    var showData = [];
+
+    var cropId;
+
+    //*************************************************************************************************//
+
+
+
+    insertbtn.addEventListener('click', function () {
+      event.preventDefault()
+      try {
+        //Get element references
+        // var userId = document.getElementById('user_id').value;
+        var userId = 'user'
+        var cropName = document.getElementById('plant_name').value;
+        var noOfPlants = document.getElementById('plant_no').value;
+        var createDate = document.getElementById('date_field').value;
+        var range = document.getElementById('range').value;
+        if (!cropId) {
+          cropId = Math.random().toString(36).slice(2);
+        }
+
+
+        //inserting data 
+        set(ref(database, 'CreateCrops/' + userId + '/' + cropId), {
+          userId: userId,
+          cropId: cropId,
+          cropName: cropName,
+          noOfPlants: noOfPlants,
+          createDate: createDate,
+          range: range
+        });
+
+        alert('New crop created with id ' + cropId + ' on user ' + userId)
+
+        cropId = '';
+
+
+      }
+      catch (err) {
+        alert(error);
+      }
+    })
+
+    showbtn.addEventListener('click', function () {
+
+      var userId = 'user'
+
+      alert('show clicked', userId)
+
+      onValue(ref(database, 'CreateCrops/' + userId), (snapshot) => {
+
+        const data = snapshot.val();
+
+        console.log('data ----------------->', data);
+
+        showData = Object.values(data)
+
+        console.log(showData, '---------------------------------showData')
+
+        showData = filterData(showData);
+
+        if (showData.length == 0) {
+
+        }
+        else {
+          createcards(showData);
+        }
+      });
+    })
+
+    function filterData(data) {
+      var filterMonth = document.getElementById('selectedMonth').value;
+      if (filterMonth == '00') {
+        return data
+      }
+      else {
+        var filteredDatas = []
+        for (var i = 0; i < data.length; i++) {
+          var createDate = String(showData[i].createDate);
+          var month = createDate.substring(5, 7);
+          if (filterMonth == month) {
+            filteredDatas.push(data[i]);
+          }
+        }
+        return filteredDatas;
+      }
+    }
+
+    function editClicked(data) {
+
+      document.getElementById('plant_name').value = data.cropName;
+      document.getElementById('plant_no').value = data.noOfPlants;
+      document.getElementById('date_field').value = data.createDate;
+      document.getElementById('range').value = data.range;
+      cropId = data.cropId;
+
+    }
+
+    function deleteClicked(userId,cropId) {
+
+      set(ref(database, 'CreateCrops/' + userId + '/' + cropId), null);
+
+      alert('Deleted crop ' + cropId + ' on user ' + userId)
+
+      cropId = '';
+
+    }
+
+
+
+
+
+    //*************************************************************************************************//
+
+
+    function createcards(filterArray) {
+
+      let tagsamp = ``;
+
+      filterArray.forEach((obj) => {
+
+        console.log(obj, '---------------------------------obj')
+
+
+        let card = ` <div class="card-panel recipe white row" style="height: 200px;">
+
+        <div class="recipe-details">
+          <div class="recipe-title"><a href="/"></a></div>
+
+
+          <label style="font-size: larger;">Plant Name:</label>
+          <a style="font-size: larger;">${obj.cropName}</a>
+          <br>
+
+          <label style="font-size: larger;">No. of plants:</label>
+          <a style="font-size: larger;">${obj.noOfPlants}</a>
+          <br>
+
+          <label style="font-size: larger;">Date:</label>
+          <a style="font-size: larger;">${obj.createDate}</a>
+          <br>
+
+          <label style="font-size: larger;">Range:</label>
+          <a style="font-size: larger;">${obj.range}</a>
+          <br>
+          <br>
+          <center style="margin-left: -50;">
+
+            <button class="btn btn-danger deletebtn" id='del${obj.cropId}'    style="background-color:red;">Delete</button>
+
+            <button class="btn btn-success editbtn" id='edit${obj.cropId}'   style="background-color: #07da63;">Edit</button>
+
+
+          </center>
+        </div>
+        </div>`
+
+
+        tagsamp = tagsamp + card;
+
+       
+
+      })
+
+      document.getElementById('cardsContainer').innerHTML = tagsamp;
+
+      filterArray.forEach((obj)=>{
+        document.getElementById('del'+obj.cropId).onclick = function(){console.log('obj ----------------->', obj); deleteClicked(obj.userId, obj.cropId)}
+        document.getElementById('edit'+obj.cropId).onclick = function(){console.log('obj ----------------->', obj); editClicked(obj)}
+      })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>

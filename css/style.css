@@ -1,0 +1,178 @@
+/* colours */
+:root{
+  --primary: #08f26e;
+  --secondary: #07da63;
+  --title: #059142;
+}
+
+/* layout styles */
+nav{
+  background: var(--primary);
+  border-bottom: 10px solid var(--secondary);
+}
+nav a{
+  text-transform: uppercase;
+  color: var(--title);
+}
+nav a span{
+  font-weight: bold;
+}
+nav .sidenav-trigger{
+  margin: 0;
+}
+
+/* recipe styles */
+.recipes{
+  margin-top: 20px;
+}
+.card-panel.recipe{
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 1px 3px rgba(90,90,90,0.1);
+  display: grid;
+  grid-template-columns: 2fr 6fr 1fr;
+  grid-template-areas: "image details delete";
+  position: relative;
+}
+.recipe img{
+  grid-area: image;
+  max-width: 60px;
+}
+.recipe-details{
+  grid-area: details;
+  margin-top: 6px;
+}
+.recipe-delete{
+  grid-area: delete;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.recipe-delete i{
+  font-size: 18px;
+}
+.recipe-title{
+  font-weight: bold;
+}
+.recipe-ingredients{
+  font-size: 0.8em;
+}
+
+/* form-styles */
+.add-btn{
+  background: var(--title) !important;
+}
+input{
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+.side-form button{
+  background: var(--title);
+  box-shadow: 1px 1px 3px rgba(90,90,90,0.2);
+}
+form .input-field{
+  margin-top: 30px;
+}
+
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 2px 16px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+}
+
+/* Add rounded corners to the top left and the top right corner of the image */
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+/*Monitoring meter for Iot CSS */
+
+.gauge {
+width: 100%;
+max-width: 250px;
+font-family: "Roboto", sans-serif;
+font-size: 10px;
+color: #032b14;
+}
+
+.gauge__body {
+width: 100%;
+height: 0;
+padding-bottom: 50%;
+background: #b4c0b9;
+position: relative;
+border-top-left-radius: 100% 200%;
+border-top-right-radius: 100% 200%;
+overflow: hidden;
+}
+
+.gauge__fill {
+position: absolute;
+top: 100%;
+left: 0;
+width: inherit;
+height: 100%;
+background: #07da63;
+transform-origin: center top;
+transform: rotate(0.25turn);
+transition: transform 0.2s ease-out;
+}
+
+.gauge__fill1 {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: inherit;
+  height: 100%;
+  background: rgb(238, 238, 51);
+  transform-origin: center top;
+  transform: rotate(0.25turn);
+  transition: transform 0.2s ease-out;
+  }
+
+  .gauge__fill2 {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: inherit;
+    height: 100%;
+    background: rgb(63, 187, 218);
+    transform-origin: center top;
+    transform: rotate(0.25turn);
+    transition: transform 0.2s ease-out;
+    }
+.gauge__cover {
+width: 75%;
+height: 150%;
+background: #ffffff;
+border-radius: 50%;
+position: absolute;
+top: 25%;
+left: 50%;
+transform: translateX(-50%);
+
+/* Text */
+display: flex;
+align-items: center;
+justify-content: center;
+padding-bottom: 25%;
+box-sizing: border-box;
+}
+
